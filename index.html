@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Shower Presentation Engine</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<style>
+		.cover h2{
+			color:#FFF;
+			text-shadow: 1px 1px 2px #000;
+			font-size: 3.5em;
+			}
+		h3 {
+			font-size: 1.5em;
+			margin-top: 70px;
+			margin-left: -20px;
+			white-space: nowrap;
+		}
+		.black h2{
+			color:#000;
+			text-shadow: 1px 1px 2px #FFF;
+		}
+
+		.blured {
+			filter: blur(3px);
+			-webkit-filter: blur(3px);
+		}
+
+		small {
+			font-size: 0.65em;
+		}
+		.floated-image img {
+			float: left;
+			margin-right: 70px;
+		}
+	</style>
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Улучшаем взаимодействие с пользователем</h1>
+		<p>N способов</p>
+	</header>
+	<section class="slide" id="Cover"><div>
+		<h2><a href="http://asubbotin.ru">Александр Субботин</a>, <a href="http://castle.co">Castle</a></h2>
+		<p>Full-stack разработчик на JS и Ruby on Rails</p>
+		<h3>«Улучшаем взаимодействие с пользователем»</h3>
+	</div></section>
+	<section class="slide cover shout" id="habbits"><div>
+		<h2>Привычки</h2>
+		<img src="pictures/habbit.jpg">
+	</div></section>
+
+	<section class="slide cover shout"><div>
+		<h2>1. Клавиатура</h2>
+		<img src="pictures/keyboard.jpg" class="blured">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>1. Клавиатура</h2>
+		<ol>
+			<li>ESC закрывает</li>
+			<li class="next">Enter открывает</li>
+			<li class="next">Стрелки листают</li>
+			<li class="next">&#8984;/ctrl+z отменяют</li>
+		</ol>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Клавиатура: JS</h2>
+		<p>Обрабатываем событие <code>keydown</code></p>
+		<ul>
+			<li>ESC: <code>event.keyCode == 27</code></li>
+			<li>Enter: <code>event.keyCode = 13</code></li>
+			<li>Стрелки: 37, 38, 39, 40 по часовой стрелке от &larr;</li>
+			<li>&#8984;/ctrl+z: <code>e.metaKey && e.keyCode == 90 </code></li>
+		</ul>
+		<p class="note">
+			<small><i>HINT</i>: добавьте <a href="javascript: document.addEventListener('keydown', function(e){console.log(e.keyCode); })">букмарклет</a> для определения: <br />
+			 <code>document.addEventListener('keydown', (e) => {console.log(e.keyCode) })</code>
+			</small>
+		</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Клавиатура: постоянные пользователи</h2>
+		<img src="pictures/slack.png" width="100%"/>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Клавиатура: постоянные пользователи</h2>
+		<img src="pictures/github.png" width="100%"/>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>Пример: Улучшаем autocomplete</h2>
+		<img src="pictures/autocomplete1.png" height="400">
+		<ol>
+			<li>Навигация с клавиатуры: вверх и вниз</li>
+			<li class="next">Enter для перехода</li>
+			<li class="next">ESC чтобы закрыть</li>
+		</ol>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>Пример: Улучшаем autocomplete</h2>
+		<img src="pictures/autocomplete2.png" height="400">
+		<ul>
+			<li class="next" start="4">Добавляем <code>autocomplete="off"</code></li>
+		</ul>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>Пример: Улучшаем autocomplete</h2>
+		<img src="pictures/autocomplete1.png" height="400">
+		<ul>
+			<li class="next">Добавляем <a href="http://drupalmotion.com/article/debounce-and-throttle-visual-explanation">throttle</a> (+в перформансе)</li>
+			<li class="next">Автодоплнение там, где курсор, а не в конце</li>
+		</ul>
+	</div></section>
+
+	<section class="slide cover shout"><div>
+		<h2>2. Жесты</h2>
+		<img src="pictures/thumbsup.jpg" class="blured">
+	</section>
+
+	<section class="slide floated-image"><div>
+		<h2>2. Жесты</h2>
+		<img src="pictures/scroller.png" height="400">
+		<ol>
+			<li class="next">Слайд для переключения картинок</li>
+			<li class="next">Скролл на touch устройствах и тачпаде</li>
+		</ol>
+	</div></section>
+
+	<section class="slide"><div>
+		<pre>
+			<small>
+			<code>.js-thumbs-slider style="overflow: hidden; height: 46px;"</code>
+			<code>	.js-thumbs-content style="overflow: scroll; overflow-x: scroll; height: 80px;"</code>
+			<code>  	...</code>
+			<code>	.js-slide data-direction="-1" &rarr;</code>
+			<code>	.js-slide data-direction="1" &larr;</code>
+			</small>
+		</pre>
+
+		<pre>
+			<small>
+				<code>slide() {</code>
+				<code>  let direction = parseInt(e.$el.data('direction'), 10)</code>
+				<code>  let currentScroll = this.$content.scrollLeft()</code>
+				<code></code>
+				<code>  this.$content.scrollLeft(currentScroll + direction * 2 * this.width / 5)</code>
+				<code>  return false</code>
+				<code>}</code>
+			</small>
+		</pre>
+	</div></section>
+
+	<section class="slide cover shout black"><div>
+		<h2>3. Браузер</h2>
+		<img src="pictures/explorer.gif" class="blured">
+	</section>
+
+
+	<section class="slide floated-image"><div>
+		<h2>3. Браузер</h2>
+		<img src="pictures/search1.png" height="400">
+		<ul>
+			<li class="next">Поиск</li>
+			<li class="next"><code>scrollLeft</code></li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<img src="pictures/cut.png" height="400">
+		<ol>
+			<li class="next">Обрезать строку на сервере и добавить ...</li>
+			<li class="next"><code>text-overflow: ellipsis</code></li>
+		</ol>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>3. Браузер: поиск</h2>
+		<img src="pictures/search2.png" height="250">
+		<ul>
+			<li class="next">Выбираем второй вариант</li>
+			<li class="next">На самом деле всё тот же <code>scrollLeft</code></li>
+		</ul>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>3. Браузер</h2>
+		<ul>
+			<li class="next">Навигация по tab</li>
+			<li class="next"><code>:focus</code> для элементов форм</li>
+			<li class="next">Правильный tabindex</li>
+		</ul>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>3. Браузер: кастомные элементы</h2>
+		<ul>
+			<li class="next">tabindex и :focus для кастомных элементов</li>
+			<li class="next">Поиск в кастомном select</li>
+			<li class="next">Пробел/enter в кастомном radio или checkbox</li>
+		</ul>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>3. Браузер: ссылки</h2>
+		<ul>
+			<li class="next">Ссылка имеет адрес</li>
+			<li class="next">Можно открыть в новой вкладке</li>
+			<li class="next">Если запускает js и имеет адрес — js срабатывает после перезагрузки</li>
+			<li class="next"><code>a href="#"</code>, <code>a href="javascript:void(0)"</code> и т.д. — <b>не</b> ссылки, потому что...</li>
+		</ul>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>3. Браузер: ссылки</h2>
+		<img src="pictures/blank.png">
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>3. Браузер: ссылки</h2>
+		<ul>
+			<li>ajax/pjax ссылки должны открываться по клику колесом или cmd/ctrl+click</li>
+		</ul>
+		<pre>
+			<code>element.addEventListener('click', function(e){</code>
+			<code>    if (e.which === 1 && !e.ctrlKey && !e.metaKey) {</code>
+			<code>      /*beutiful ajax code*/</code>
+			<code>    }</code>
+			<code>});</code>
+		</pre>
+	</div></section>
+
+	<section class="slide floated-image"><div>
+		<h2>3. Браузер: ссылки</h2>
+		<ul>
+			<li><small><code>a href=".../hadsfiu1DFJHDUE#.pdf" download="report.pdf"</code></small></li>
+		</ul>
+	</div></section>
+
+
+	<section class="slide"><div>
+		<h2>Упрощение жизни пользователя</h2>
+		<ul>
+			<li>Не раздражать его</li>
+		</ul>
+	</div></section>
+
+
+	<section class="slide"><div>
+			<h2>Пример: Улучшаем удаление</h2>
+			<img src="pictures/wishlist1.png" width="800">
+			<ol>
+				<li class="next">Не двигаем и не удаляем DOM-элемент</li>
+				<li class="next">Мгновенный результат (без ожидания ответа от сервера)</li>
+			</ol>
+	</div></section>
+
+
+	<section class="slide"><div>
+		<h2>Пример: Улучшаем удаление</h2>
+		<pre>
+			<small>
+			<code>$.ajaxSetup({</code>
+			<code>  beforeSend: () => {</code>
+			<code>    $(window).on('beforeunload.ajax', () => {</code>
+			<code>      return 'There are some requests to server. You could lose your changes'</code>
+			<code>    })</code>
+			<code>  },</code>
+			<code>  complete: () => {</code>
+			<code>    $(window).off('beforeunload.ajax')</code>
+			<code>  }</code>
+			<code>})</code>
+			</small>
+		</pre>
+	</div></section>
+
+
+	<section class="slide floated-image"><div>
+			<h2>Пример: Улучшаем удаление</h2>
+			<img src="pictures/wishlist2.png" height="400">
+			<ul>
+				<li>cmd/ctrl+z для отмены действия</li>
+			</ul>
+	</div></section>
+
+
+	<section class="slide"><div>
+		<h2>Упрощение жизни пользователя</h2>
+		<ul>
+			<li>
+				Делать и думать за него
+			</li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>...Думать за него</h2>
+		<p>Почти для любого поля в форме можно выбрать значение по-умолчанию так, что часть пользователей не будут его менять</p>
+		<ul>
+			<li class="next">Год: средний по базе</li>
+			<li class="next">Пол: по отчеству</li>
+			<li class="next">Не спрашивать 2 раза: имя и адрес в платежах</li>
+			<li class="next">Card Expiration: от 2 до 4 лет. Берем <code>2.years.from_now</code> (25% не будут изменять!)</li>
+			<li class="next">... </li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>...Думать за него</h2>
+		<img src="pictures/defaults.png" height="400">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>...Думать за него</h2>
+		<img src="pictures/forgot1.png" height="400">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>...Думать за него</h2>
+		<img src="pictures/forgot2.png" height="300">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>...Думать за него</h2>
+		<img src="pictures/forgot3.png" height="300">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>...Думать за него</h2>
+		<img src="pictures/forgot4.png" height="300">
+	</div></section>
+
+	<div class="progress"><div></div></div>
+	<script src="shower/shower.min.js"></script>
+	<!-- Copyright © 2014 Yours Truly, Famous Inc. -->
+</body>
+</html>
